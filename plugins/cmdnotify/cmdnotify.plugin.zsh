@@ -8,7 +8,7 @@
 
 zmodload zsh/datetime
 
-CMDNOTIFY_TIME=10
+CMDNOTIFY_TIME=5
 _CMDNOTIFY_EXECUTED=""
 
 function _cmdnotify-preexec() {
@@ -24,11 +24,11 @@ function _cmdnotify-precmd() {
   if [[ -n "$TTY" && -n "$_CMDNOTIFY_EXECUTED" ]]; then
     _CMDNOTIFY_EXECUTED=""
     difftime=$(($EPOCHREALTIME-$_CMDNOTIFY_START_TIME))
-    if [[ $difftime > $CMDNOTIFY_TIME && $TTYIDLE > $CMDNOTIFY_TIME ]]; then
+    if [[ $difftime -ge $CMDNOTIFY_TIME && $TTYIDLE -ge $CMDNOTIFY_TIME ]]; then
       last_cmd=(${(Q)${(z)_CMDNOTIFY_LAST_CMD}})
       # filter env vars
       for prog in $last_cmd
-        [[ $prog != [[:graph:]]*=[[:graph:]]* ]] && break
+        [[ "$prog" != [[:graph:]]*=[[:graph:]]* && "$prog" != ";" ]] && break
       notify "$_CMDNOTIFY_LAST_CMD" \
         "'$prog' ($(printf "%.1fs\n" $difftime))"
     fi
