@@ -10,6 +10,7 @@ zmodload zsh/datetime
 
 CMDNOTIFY_TIME=5
 CMDNOTIFY_IGNORE_PREFIX=(time sudo tsocks)
+CMDNOTIFY_DONT_NOTIFY=(man)
 _CMDNOTIFY_EXECUTED=""
 
 function _cmdnotify-preexec() {
@@ -34,8 +35,9 @@ function _cmdnotify-precmd() {
           "$prog" != ";" && \
           "${CMDNOTIFY_IGNORE_PREFIX[(r)$prog]}" != "$prog" ]] \
           && break
-      notify "$_CMDNOTIFY_LAST_CMD" \
-        "'$prog' ($(printf "%.1fs\n" $difftime))"
+      [[ "${CMDNOTIFY_DONT_NOTIFY[(r)$prog]}" != "$prog" ]] && \
+        notify "$_CMDNOTIFY_LAST_CMD" \
+          "'$prog' ($(printf "%.1fs\n" $difftime))"
     fi
   fi
 }
