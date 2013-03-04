@@ -37,7 +37,7 @@ function _cmdnotify-precmd() {
           && break
       [[ "${CMDNOTIFY_DONT_NOTIFY[(r)$prog]}" != "$prog" ]] && \
         notify "$_CMDNOTIFY_LAST_CMD" \
-          "'$prog' ($(printf "%.1fs\n" $difftime))"
+            "'$(basename $prog)' ($(printf "%.1fs\n" $difftime))"
     fi
   fi
 }
