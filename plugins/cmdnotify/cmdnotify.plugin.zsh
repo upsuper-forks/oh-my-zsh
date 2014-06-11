@@ -10,7 +10,7 @@ zmodload zsh/datetime
 zmodload zsh/mathfunc
 
 CMDNOTIFY_TIME=5
-CMDNOTIFY_IGNORE_PREFIX=(time sudo tsocks)
+CMDNOTIFY_IGNORE_PREFIX=(time sudo tsocks caffeinate)
 CMDNOTIFY_DONT_NOTIFY=(man)
 _CMDNOTIFY_EXECUTED=""
 
