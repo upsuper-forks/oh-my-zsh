@@ -41,7 +41,7 @@ function _cmdnotify-precmd() {
       let "minute = int(difftime / 60)"
       let "second = difftime - minute * 60"
       let "hour = int(minute / 60)"
-      let "minute -= hour * 60)"
+      let "minute -= int(hour * 60)"
       let "day = int(hour / 24)"
       let "hour -= day * 24"
 
